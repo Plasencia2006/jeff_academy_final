@@ -14,6 +14,10 @@ use App\Http\Controllers\CoachController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\PagoStripeController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\ChatbotController;
+
+// Ruta para obtener datos del chatbot
+Route::get('/chatbot/data', [ChatbotController::class, 'getData'])->name('chatbot.data');
 
 // Rutas públicas
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -29,7 +33,7 @@ Route::get('/noticias/{id}', [HomeController::class, 'noticiaShow'])->name('noti
 Route::get('/contacto', [HomeController::class, 'contacto'])->name('contacto');
 
 // Planes y Precios
-
+Route::get('/planes', [HomeController::class, 'planes'])->name('planes');
 
 // Inscripción pública (Vista)
 Route::get('/inscripcion', [HomeController::class, 'inscripcion'])->name('inscripcion');
@@ -90,18 +94,24 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/usuarios', [AdminController::class, 'storeUsuario'])->name('admin.usuarios.store');
     Route::put('/usuarios/{id}', [AdminController::class, 'updateUsuario'])->name('usuarios.update');
     Route::put('/usuarios/{id}/toggle', [AdminController::class, 'destroyUsuario'])->name('usuarios.toggle');
+    Route::delete('/usuarios/{id}', [AdminController::class, 'deleteUsuario'])->name('usuarios.destroy');
 
-   
+    Route::post('/registro', [RegistroController::class, 'store'])->name('registro.store');
+
     // Actualizar datos básicos (nombre, email, telefono, rol)
     Route::put('/usuarios/{id}', [AdminController::class, 'updateUsuario'])->name('usuarios.update');
     
     // Cambiar contraseña (solo admin)
     Route::put('/usuarios/{id}/password', [AdminController::class, 'updatePassword'])->name('usuarios.password');
-    Route::put('/usuarios/{id}/password', [AdminController::class, 'updatePassword'])
-        ->name('usuarios.password');
+
 
     // Inscripciones
     Route::post('/inscripciones', [AdminController::class, 'storeInscripcion'])->name('admin.inscripciones.store');
+    Route::put('/inscripciones/{id}', [AdminController::class, 'updateInscripcion'])->name('admin.inscripciones.update');
+    Route::delete('/inscripciones/{id}', [AdminController::class, 'destroyInscripcion'])->name('admin.inscripciones.destroy');
+    Route::put('/inscripciones/{id}/aprobar', [AdminController::class, 'aprobarInscripcion'])->name('admin.inscripciones.aprobar');
+    Route::put('/inscripciones/{id}/rechazar', [AdminController::class, 'rechazarInscripcion'])->name('admin.inscripciones.rechazar');
+
 
     // Entrenamientos
     Route::post('/entrenamientos', [AdminController::class, 'storeEntrenamiento'])->name('admin.entrenamientos.store');
@@ -114,6 +124,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Gestión de pagos
     Route::post('/confirmar-pago', [AdminController::class, 'confirmarPago'])->name('admin.confirmar-pago');
     Route::post('/registrar-pago-manual', [AdminController::class, 'registrarPagoManual'])->name('admin.registrar-pago-manual');
+    
+    // Gestión de registros
+    Route::delete('/registros/{id}', [AdminController::class, 'destroyRegistro'])->name('admin.registros.destroy');
 
     // Rutas para Planes
     Route::post('/admin/planes', [AdminController::class, 'storePlan'])->name('admin.planes.store');
@@ -122,6 +135,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Asegúrate de tener una ruta para la página de planes
     Route::get('/planes', [App\Http\Controllers\AdminController::class, 'planes'])->name('planes');
     // Asegúrate de que esta ruta use el controlador correcto
+
+    // USUARIOS
+    Route::put('/usuarios/{id}', [AdminController::class, 'updateUsuario'])->name('usuarios.update');
+    Route::put('/usuarios/{id}/password', [AdminController::class, 'updatePassword'])->name('usuarios.password');
+    Route::put('/usuarios/{id}/toggle', [AdminController::class, 'destroyUsuario'])->name('usuarios.toggle');
+    // PLANES
+    Route::get('/admin/planes/{id}', [AdminController::class, 'showPlan']);
+    Route::put('/admin/planes/{id}', [AdminController::class, 'updatePlan'])->name('admin.planes.update');
+    Route::delete('/admin/planes/{id}', [AdminController::class, 'destroyPlan'])->name('admin.planes.destroy');
 
     // Rutas para Disciplinas
     Route::post('/admin/disciplinas', [AdminController::class, 'storeDisciplina'])->name('admin.disciplinas.store');
@@ -138,6 +160,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/mensajes/{conversacion}', [AdminController::class, 'getMensajes']);
     Route::post('/mensajes/nuevo', [AdminController::class, 'nuevoMensaje']);
     Route::post('/mensajes/enviar', [AdminController::class, 'enviarMensaje']);
+
+    // Comunicados
+    Route::post('/comunicados', [App\Http\Controllers\ComunicadoController::class, 'store'])->name('admin.comunicados.store');
+    Route::put('/comunicados/{id}', [App\Http\Controllers\ComunicadoController::class, 'update'])->name('admin.comunicados.update');
+    Route::delete('/comunicados/{id}', [App\Http\Controllers\ComunicadoController::class, 'destroy'])->name('admin.comunicados.destroy');
+
+    // Configuración de Contacto
+    Route::get('/ubicacion', [AdminController::class, 'editarUbicacion'])->name('admin.ubicacion');
+    Route::put('/configuracion/contacto', [AdminController::class, 'actualizarContacto'])->name('admin.configuracion.contacto.update');
 });
 
 
@@ -198,6 +229,11 @@ Route::middleware(['auth', 'role:coach'])->prefix('coach')->group(function () {
     Route::delete('/anuncios/{id}', [App\Http\Controllers\AnuncioController::class, 'destroy'])->name('anuncios.destroy');
     Route::post('/anuncios/{id}/toggle', [App\Http\Controllers\AnuncioController::class, 'toggleActivo'])->name('anuncios.toggle');
 
+    // Comunicados
+    Route::post('/comunicados', [App\Http\Controllers\ComunicadoController::class, 'store'])->name('coach.comunicados.store');
+    Route::put('/comunicados/{id}', [App\Http\Controllers\ComunicadoController::class, 'update'])->name('coach.comunicados.update');
+    Route::delete('/comunicados/{id}', [App\Http\Controllers\ComunicadoController::class, 'destroy'])->name('coach.comunicados.destroy');
+
 });
 
 
@@ -210,7 +246,7 @@ Route::middleware(['auth', 'role:player'])->prefix('player')->group(function () 
     // PERFIL
     Route::put('/perfil/update-image', [PlayerController::class, 'updateImage'])->name('player.update-image');
     Route::put('/perfil/update', [PlayerController::class, 'updateProfile'])->name('player.update-profile');
-    Route::put('/coach/perfil/update-image', [CoachController::class, 'updateImage'])->name('player.perfil.update-image');
+    Route::put('/coach/perfil/update-image', [CoachController::class, 'updateImage'])->name('coach.perfil.update-image');
 
     
     // ASISTENCIA Y RENDIMIENTO
@@ -267,7 +303,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 Route::middleware(['web'])->group(function () {
     Route::get('/platform', [RegistroController::class, 'platform'])->name('platform');
     Route::post('/registro/logout', [RegistroController::class, 'logout'])->name('registro.logout');
-    Route::get('/mis-datos', [RegistroController::class, 'misDatos'])->name('registro.mis-datos');
+    // Rutas para planes de usuarios
+    Route::get('/mis-planes', [App\Http\Controllers\RegistroController::class, 'misPlanes'])->name('registro.mis-planes');
+    Route::get('/elegir-plan', [App\Http\Controllers\RegistroController::class, 'elegirPlan'])->name('registro.elegir-plan');
     Route::get('/elegir-plan', [RegistroController::class, 'elegirPlan'])->name('registro.elegir-plan');
     Route::post('/procesar-pago', [RegistroController::class, 'procesarPago'])->name('pago.procesar');
 });
@@ -281,7 +319,6 @@ Route::get('/admin/gestion-registros', [RegistroController::class, 'gestionRegis
 Route::get('/admin/registros/{id}/detalles', [RegistroController::class, 'obtenerDetallesRegistro']);
 
 // Enviar credenciales por correo
- // ✅ RUTA CORRECTA para enviar credenciales
 Route::post('/enviar-credenciales',[AdminController::class, 'enviarCredenciales'])
     ->name('enviar.credenciales');
 
@@ -295,16 +332,5 @@ Route::prefix('admin')->group(function () {
 //graficas del administrador
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/api/dashboard/stats', [DashboardController::class, 'getDashboardStats'])->name('dashboard.stats');
-
-Route::get('/check-assets', function() {
-    $assets = [
-        'css/styles.css' => file_exists(public_path('css/styles.css')) ? 'EXISTE' : 'NO EXISTE',
-        'css/footer-style.css' => file_exists(public_path('css/footer-style.css')) ? 'EXISTE' : 'NO EXISTE',
-        'css/navbar-style.css' => file_exists(public_path('css/navbar-style.css')) ? 'EXISTE' : 'NO EXISTE',
-        'css/components/hero-style.css' => file_exists(public_path('css/components/hero-style.css')) ? 'EXISTE' : 'NO EXISTE',
-    ];
-    
-    return response()->json($assets);
-});
 
 Route::get('/crear-admin', [HomeController::class, 'crearAdmin']);
