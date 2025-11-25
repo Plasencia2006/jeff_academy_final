@@ -252,4 +252,4 @@ Route::middleware(['auth', 'role:player'])->prefix('player')->name('player.')->g
 // RUTA PARA CREAR ADMIN (DESARROLLO)
 // ============================================
 
-Route::get('/crear-admin', [AdminController::class, 'crearAdmin']);
+Route::get('/crear-admin', [HomeController::class, 'crearAdmin']);
