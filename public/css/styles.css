@@ -1,0 +1,34 @@
+:root {
+    --verde-oscuro: #0d3b2e;
+    --verde-medio: #1a5c3a;
+    --verde-claro: #4caf50;
+    --verde-brillante: #5FDB68;
+    --amarillo-brillante: #FFD700;
+    --amarillo-hover: #FFC700;
+    --negro: #000000;
+    --negro-suave: #1a1a1a;
+    --blanco: #ffffff;
+    --gris-light: #f8fafc;
+    --gris-dark: #1f2937;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-titlesss { 
+  color: white;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;           /* <-- CENTRA EL TÍTULO */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.section-subtitlesss { 
+  color: #e9f5ec;
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 50px;
+  font-weight: 300;
+  text-align: center;           /* <-- CENTRA EL SUBTÍTULO */
+}

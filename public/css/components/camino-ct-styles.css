@@ -1,0 +1,457 @@
+/* ===================================
+   🎯 SECCIÓN CTA
+   =================================== */
+
+.cta-section {
+    background-image: url('/img/cta.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 0;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 88, 65, 0.545), rgba(5, 150, 104, 0.37));
+    z-index: 1;
+}
+
+.cta-section::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    right: 8%;
+    font-size: 12rem;
+    opacity: 0.05;
+    z-index: 2;
+    animation: rotate 30s linear infinite;
+}
+
+.cta-content {
+    text-align: center;
+    position: relative;
+    z-index: 3;
+}
+
+.cta-content h2 {
+    color: #ffffff;
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 25px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.cta-content p {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.4rem;
+    margin-bottom: 45px;
+    font-weight: 300;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-cta-primary {
+    background: #ffd900;
+    color: #000000;
+    padding: 18px 45px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-cta-primary i {
+    font-size: 1.2rem;
+}
+
+.btn-cta-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    background: #ffe100;
+}
+
+.btn-cta-secondary {
+    background: transparent;
+    color: #ffffff;
+    padding: 18px 45px;
+    border: 3px solid #ffffff;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.btn-cta-secondary:hover {
+    background: #ffffff;
+    color: #000000;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+
+@media (max-width: 1200px) {
+    .cta-section {
+        padding: 100px 0;
+    }
+
+    .cta-content h2 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    .cta-content p {
+        font-size: 1.3rem;
+        margin-bottom: 40px;
+    }
+
+    .cta-buttons {
+        gap: 20px;
+    }
+
+    .btn-cta-primary,
+    .btn-cta-secondary {
+        padding: 16px 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .cta-section {
+        padding: 90px 0;
+    }
+
+    .cta-content h2 {
+        font-size: 2.8rem;
+        margin-bottom: 18px;
+    }
+
+    .cta-content p {
+        font-size: 1.2rem;
+        margin-bottom: 35px;
+    }
+
+    .cta-buttons {
+        gap: 18px;
+    }
+
+    .btn-cta-primary,
+    .btn-cta-secondary {
+        padding: 15px 38px;
+        font-size: 0.98rem;
+    }
+
+    .btn-cta-primary i,
+    .btn-cta-secondary i {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .cta-section {
+        padding: 80px 0;
+    }
+
+    .cta-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 16px;
+    }
+
+    .cta-content p {
+        font-size: 1.1rem;
+        margin-bottom: 32px;
+    }
+
+    .cta-buttons {
+        gap: 16px;
+    }
+
+    .btn-cta-primary,
+    .btn-cta-secondary {
+        padding: 14px 35px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .cta-section {
+        padding: 70px 0;
+        background-attachment: scroll;
+    }
+
+    .cta-content h2 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .cta-content p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+
+    .cta-buttons {
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .btn-cta-primary,
+    .btn-cta-secondary {
+        padding: 13px 32px;
+        font-size: 0.92rem;
+    }
+
+    .btn-cta-primary i,
+    .btn-cta-secondary i {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .cta-section {
+        padding: 60px 20px;
+    }
+
+    .cta-content h2 {
+        font-size: 2rem;
+        margin-bottom: 12px;
+    }
+
+    .cta-content p {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+
+    .cta-buttons {
+        gap: 12px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-cta-primary {
+        padding: 12px 30px;
+        font-size: 0.88rem;
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+
+    .btn-cta-secondary {
+        padding: 11px 28px;
+        font-size: 0.84rem;
+        width: 100%;
+        max-width: 260px;
+        justify-content: center;
+    }
+
+    .btn-cta-primary i,
+    .btn-cta-secondary i {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .cta-section {
+        padding: 50px 15px;
+    }
+
+    .cta-content h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    .cta-content p {
+        font-size: 0.9rem;
+        margin-bottom: 22px;
+    }
+
+    .cta-buttons {
+        gap: 10px;
+    }
+
+    .btn-cta-primary {
+        padding: 11px 28px;
+        font-size: 0.85rem;
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .btn-cta-secondary {
+        padding: 10px 26px;
+        font-size: 0.81rem;
+        width: 100%;
+        max-width: 240px;
+    }
+
+    .btn-cta-primary i,
+    .btn-cta-secondary i {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-section {
+        padding: 45px 15px;
+    }
+
+    .cta-content h2 {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+    }
+
+    .cta-content p {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+    }
+
+    .cta-buttons {
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .btn-cta-primary {
+        padding: 10px 24px;
+        font-size: 0.8rem;
+        width: 100%;
+        max-width: 240px;
+    }
+
+    .btn-cta-secondary {
+        padding: 9px 22px;
+        font-size: 0.76rem;
+        width: 100%;
+        max-width: 220px;
+    }
+
+    .btn-cta-primary i,
+    .btn-cta-secondary i {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .cta-section {
+        padding: 40px 12px;
+    }
+
+    .cta-content h2 {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+
+    .cta-content p {
+        font-size: 0.8rem;
+        margin-bottom: 18px;
+    }
+
+    .cta-buttons {
+        gap: 8px;
+    }
+
+    .btn-cta-primary {
+        padding: 9px 20px;
+        font-size: 0.75rem;
+        width: 100%;
+        max-width: 220px;
+        gap: 8px;
+    }
+
+    .btn-cta-secondary {
+        padding: 8px 18px;
+        font-size: 0.71rem;
+        width: 100%;
+        max-width: 200px;
+        gap: 8px;
+    }
+
+    .btn-cta-primary i,
+    .btn-cta-secondary i {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .cta-section {
+        padding: 35px 10px;
+    }
+
+    .cta-content h2 {
+        font-size: 1.4rem;
+        margin-bottom: 6px;
+    }
+
+    .cta-content p {
+        font-size: 0.75rem;
+        margin-bottom: 15px;
+    }
+
+    .cta-buttons {
+        gap: 8px;
+    }
+
+    .btn-cta-primary {
+        padding: 8px 18px;
+        font-size: 0.7rem;
+        width: 100%;
+        max-width: 200px;
+        gap: 6px;
+    }
+
+    .btn-cta-secondary {
+        padding: 7px 16px;
+        font-size: 0.66rem;
+        width: 100%;
+        max-width: 180px;
+        gap: 6px;
+    }
+
+    .btn-cta-primary i,
+    .btn-cta-secondary i {
+        font-size: 0.75rem;
+    }
+}
