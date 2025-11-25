@@ -333,4 +333,4 @@ Route::prefix('admin')->group(function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/api/dashboard/stats', [DashboardController::class, 'getDashboardStats'])->name('dashboard.stats');
 
-Route::get('/crear-admin', [HomeController::class, 'crearAdmin']);
+Route::get('/crear-admin', [AdminController::class, 'crearAdmin']);
