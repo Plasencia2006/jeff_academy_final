@@ -76,93 +76,93 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 });
 
-// Rutas para Administrador
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+// Rutas para Administrador - CON NOMBRES COMPATIBLES CON VISTAS EXISTENTES
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    // Usuarios
-    Route::post('/usuarios', [AdminController::class, 'storeUsuario'])->name('usuarios.store');
+    // Usuarios - MANTENIENDO NOMBRES ORIGINALES PARA COMPATIBILIDAD
+    Route::post('/usuarios', [AdminController::class, 'storeUsuario'])->name('admin.usuarios.store');
     Route::put('/usuarios/{id}', [AdminController::class, 'updateUsuario'])->name('usuarios.update');
     Route::put('/usuarios/{id}/toggle', [AdminController::class, 'destroyUsuario'])->name('usuarios.toggle');
     Route::delete('/usuarios/{id}', [AdminController::class, 'deleteUsuario'])->name('usuarios.destroy');
     Route::put('/usuarios/{id}/password', [AdminController::class, 'updatePassword'])->name('usuarios.password');
 
     // Inscripciones
-    Route::post('/inscripciones', [AdminController::class, 'storeInscripcion'])->name('inscripciones.store');
-    Route::put('/inscripciones/{id}', [AdminController::class, 'updateInscripcion'])->name('inscripciones.update');
-    Route::delete('/inscripciones/{id}', [AdminController::class, 'destroyInscripcion'])->name('inscripciones.destroy');
-    Route::put('/inscripciones/{id}/aprobar', [AdminController::class, 'aprobarInscripcion'])->name('inscripciones.aprobar');
-    Route::put('/inscripciones/{id}/rechazar', [AdminController::class, 'rechazarInscripcion'])->name('inscripciones.rechazar');
+    Route::post('/inscripciones', [AdminController::class, 'storeInscripcion'])->name('admin.inscripciones.store');
+    Route::put('/inscripciones/{id}', [AdminController::class, 'updateInscripcion'])->name('admin.inscripciones.update');
+    Route::delete('/inscripciones/{id}', [AdminController::class, 'destroyInscripcion'])->name('admin.inscripciones.destroy');
+    Route::put('/inscripciones/{id}/aprobar', [AdminController::class, 'aprobarInscripcion'])->name('admin.inscripciones.aprobar');
+    Route::put('/inscripciones/{id}/rechazar', [AdminController::class, 'rechazarInscripcion'])->name('admin.inscripciones.rechazar');
 
     // Entrenamientos
-    Route::post('/entrenamientos', [AdminController::class, 'storeEntrenamiento'])->name('entrenamientos.store');
+    Route::post('/entrenamientos', [AdminController::class, 'storeEntrenamiento'])->name('admin.entrenamientos.store');
 
     // Noticias
-    Route::post('/noticias', [AdminController::class, 'storeNoticia'])->name('noticias.store');
-    Route::delete('/noticias/{id}', [AdminController::class, 'destroyNoticia'])->name('noticias.destroy');
-    Route::put('/noticias/{id}', [AdminController::class, 'updateNoticia'])->name('noticias.update');
+    Route::post('/noticias', [AdminController::class, 'storeNoticia'])->name('admin.noticias.store');
+    Route::delete('/noticias/{id}', [AdminController::class, 'destroyNoticia'])->name('admin.noticias.destroy');
+    Route::put('/noticias/{id}', [AdminController::class, 'updateNoticia'])->name('admin.noticias.update');
     
     // Gestión de pagos
-    Route::post('/confirmar-pago', [AdminController::class, 'confirmarPago'])->name('confirmar-pago');
-    Route::post('/registrar-pago-manual', [AdminController::class, 'registrarPagoManual'])->name('registrar-pago-manual');
+    Route::post('/confirmar-pago', [AdminController::class, 'confirmarPago'])->name('admin.confirmar-pago');
+    Route::post('/registrar-pago-manual', [AdminController::class, 'registrarPagoManual'])->name('admin.registrar-pago-manual');
     
     // Gestión de registros
-    Route::delete('/registros/{id}', [AdminController::class, 'destroyRegistro'])->name('registros.destroy');
+    Route::delete('/registros/{id}', [AdminController::class, 'destroyRegistro'])->name('admin.registros.destroy');
 
     // Planes
-    Route::get('/planes', [AdminController::class, 'planes'])->name('planes.index');
-    Route::post('/planes', [AdminController::class, 'storePlan'])->name('planes.store');
-    Route::get('/planes/{id}', [AdminController::class, 'showPlan'])->name('planes.show');
-    Route::put('/planes/{id}', [AdminController::class, 'updatePlan'])->name('planes.update');
-    Route::delete('/planes/{id}', [AdminController::class, 'destroyPlan'])->name('planes.destroy');
+    Route::get('/planes', [AdminController::class, 'planes'])->name('admin.planes');
+    Route::post('/planes', [AdminController::class, 'storePlan'])->name('admin.planes.store');
+    Route::get('/planes/{id}', [AdminController::class, 'showPlan'])->name('admin.planes.show');
+    Route::put('/planes/{id}', [AdminController::class, 'updatePlan'])->name('admin.planes.update');
+    Route::delete('/planes/{id}', [AdminController::class, 'destroyPlan'])->name('admin.planes.destroy');
 
     // Disciplinas
-    Route::post('/disciplinas', [AdminController::class, 'storeDisciplina'])->name('disciplinas.store');
-    Route::put('/disciplinas/{disciplina}', [AdminController::class, 'updateDisciplina'])->name('disciplinas.update');
-    Route::delete('/disciplinas/{disciplina}', [AdminController::class, 'destroyDisciplina'])->name('disciplinas.destroy');
+    Route::post('/disciplinas', [AdminController::class, 'storeDisciplina'])->name('admin.disciplinas.store');
+    Route::put('/disciplinas/{disciplina}', [AdminController::class, 'updateDisciplina'])->name('admin.disciplinas.update');
+    Route::delete('/disciplinas/{disciplina}', [AdminController::class, 'destroyDisciplina'])->name('admin.disciplinas.destroy');
 
     // Reportes
-    Route::get('/reportes', [ReporteController::class, 'mostrarReportes'])->name('reportes.index');
-    Route::post('/reportes/generar', [ReporteController::class, 'generarReporte'])->name('reportes.generar');
+    Route::get('/reportes', [ReporteController::class, 'mostrarReportes'])->name('admin.reportes');
+    Route::post('/reportes/generar', [ReporteController::class, 'generarReporte'])->name('admin.reportes.generar');
 
     // Perfil
-    Route::put('/perfil/update', [AdminController::class, 'updateProfile'])->name('perfil.update');
+    Route::put('/perfil/update', [AdminController::class, 'updateProfile'])->name('admin.perfil.update');
     
     // Mensajes
-    Route::get('/mensajes/{conversacion}', [AdminController::class, 'getMensajes'])->name('mensajes.get');
-    Route::post('/mensajes/nuevo', [AdminController::class, 'nuevoMensaje'])->name('mensajes.nuevo');
-    Route::post('/mensajes/enviar', [AdminController::class, 'enviarMensaje'])->name('mensajes.enviar');
+    Route::get('/mensajes/{conversacion}', [AdminController::class, 'getMensajes'])->name('admin.mensajes.get');
+    Route::post('/mensajes/nuevo', [AdminController::class, 'nuevoMensaje'])->name('admin.mensajes.nuevo');
+    Route::post('/mensajes/enviar', [AdminController::class, 'enviarMensaje'])->name('admin.mensajes.enviar');
 
     // Comunicados
-    Route::post('/comunicados', [ComunicadoController::class, 'store'])->name('comunicados.store');
-    Route::put('/comunicados/{id}', [ComunicadoController::class, 'update'])->name('comunicados.update');
-    Route::delete('/comunicados/{id}', [ComunicadoController::class, 'destroy'])->name('comunicados.destroy');
+    Route::post('/comunicados', [ComunicadoController::class, 'store'])->name('admin.comunicados.store');
+    Route::put('/comunicados/{id}', [ComunicadoController::class, 'update'])->name('admin.comunicados.update');
+    Route::delete('/comunicados/{id}', [ComunicadoController::class, 'destroy'])->name('admin.comunicados.destroy');
 
     // Configuración
-    Route::get('/ubicacion', [AdminController::class, 'editarUbicacion'])->name('ubicacion');
-    Route::put('/configuracion/contacto', [AdminController::class, 'actualizarContacto'])->name('configuracion.contacto.update');
+    Route::get('/ubicacion', [AdminController::class, 'editarUbicacion'])->name('admin.ubicacion');
+    Route::put('/configuracion/contacto', [AdminController::class, 'actualizarContacto'])->name('admin.configuracion.contacto.update');
 
     // Gestión de registros
-    Route::get('/gestion-registros', [RegistroController::class, 'gestionRegistros'])->name('gestion-registros');
-    Route::get('/registros/{id}/detalles', [RegistroController::class, 'obtenerDetallesRegistro'])->name('registros.detalles');
+    Route::get('/gestion-registros', [RegistroController::class, 'gestionRegistros'])->name('admin.gestion-registros');
+    Route::get('/registros/{id}/detalles', [RegistroController::class, 'obtenerDetallesRegistro'])->name('admin.registros.detalles');
 
     // Pagos
-    Route::get('/pagos', [AdminController::class, 'gestionPagos'])->name('pagos.index');
-    Route::get('/pagos/{id}', [AdminController::class, 'detallePago'])->name('pagos.detalle');
-    Route::put('/suscripciones/{id}/suspender', [AdminController::class, 'suspenderSuscripcion'])->name('suscripciones.suspender');
-    Route::put('/suscripciones/{id}/activar', [AdminController::class, 'activarSuscripcion'])->name('suscripciones.activar');
-    Route::post('/suscripciones/{id}/extender', [AdminController::class, 'extenderSuscripcion'])->name('suscripciones.extender');
+    Route::get('/pagos', [AdminController::class, 'gestionPagos'])->name('admin.pagos');
+    Route::get('/pagos/{id}', [AdminController::class, 'detallePago'])->name('admin.pagos.detalle');
+    Route::put('/suscripciones/{id}/suspender', [AdminController::class, 'suspenderSuscripcion'])->name('admin.suscripciones.suspender');
+    Route::put('/suscripciones/{id}/activar', [AdminController::class, 'activarSuscripcion'])->name('admin.suscripciones.activar');
+    Route::post('/suscripciones/{id}/extender', [AdminController::class, 'extenderSuscripcion'])->name('admin.suscripciones.extender');
 
     // Enviar credenciales
-    Route::post('/enviar-credenciales', [AdminController::class, 'enviarCredenciales'])->name('enviar-credenciales');
+    Route::post('/enviar-credenciales', [AdminController::class, 'enviarCredenciales'])->name('admin.enviar-credenciales');
 });
 
 // Rutas para Entrenador
-Route::middleware(['auth', 'role:coach'])->prefix('coach')->name('coach.')->group(function () {
-    Route::get('/dashboard', [AsistenciaController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'role:coach'])->prefix('coach')->group(function () {
+    Route::get('/dashboard', [AsistenciaController::class, 'index'])->name('coach.dashboard');
 
     // Asistencias
-    Route::post('/asistencias', [AsistenciaController::class, 'store'])->name('asistencias.store');
+    Route::post('/asistencias', [AsistenciaController::class, 'store'])->name('coach.asistencias.store');
 
     // Estadísticas
     Route::get('/estadisticas', [EstadisticaController::class, 'index'])->name('estadisticas.index');
@@ -172,50 +172,50 @@ Route::middleware(['auth', 'role:coach'])->prefix('coach')->name('coach.')->grou
     Route::delete('/estadisticas/{id}', [EstadisticaController::class, 'destroy'])->name('estadisticas.destroy');
 
     // Entrenamientos
-    Route::post('/horarios', [EntrenamientoController::class, 'storeFromCoach'])->name('horarios.store');
-    Route::put('/horarios/{entrenamiento}', [EntrenamientoController::class, 'updateFromCoach'])->name('horarios.update');
-    Route::delete('/horarios/{id}', [EntrenamientoController::class, 'destroyFromCoach'])->name('horarios.destroy');
-    Route::get('/entrenamientos/{entrenamiento}', [EntrenamientoController::class, 'showFromCoach'])->name('entrenamientos.show');
+    Route::post('/horarios', [EntrenamientoController::class, 'storeFromCoach'])->name('coach.horarios.store');
+    Route::put('/horarios/{entrenamiento}', [EntrenamientoController::class, 'updateFromCoach'])->name('coach.horarios.update');
+    Route::delete('/horarios/{id}', [EntrenamientoController::class, 'destroyFromCoach'])->name('coach.horarios.destroy');
+    Route::get('/entrenamientos/{entrenamiento}', [EntrenamientoController::class, 'showFromCoach'])->name('coach.entrenamientos.show');
 
     // Perfil
-    Route::get('/perfil', [CoachController::class, 'perfil'])->name('perfil');
-    Route::put('/perfil/update', [CoachController::class, 'update'])->name('perfil.update');
-    Route::put('/perfil/update-image', [CoachController::class, 'updateImage'])->name('perfil.update-image');
+    Route::get('/perfil', [CoachController::class, 'perfil'])->name('coach.perfil');
+    Route::put('/perfil/update', [CoachController::class, 'update'])->name('coach.perfil.update');
+    Route::put('/perfil/update-image', [CoachController::class, 'updateImage'])->name('coach.perfil.update-image');
 
     // Observaciones
-    Route::get('/observaciones', [ObservacionController::class, 'index'])->name('observaciones.index');
-    Route::post('/observaciones', [ObservacionController::class, 'store'])->name('observaciones.store');
-    Route::put('/observaciones/{id}', [ObservacionController::class, 'update'])->name('observaciones.update');
-    Route::delete('/observaciones/{id}', [ObservacionController::class, 'destroy'])->name('observaciones.destroy');
+    Route::get('/observaciones', [ObservacionController::class, 'index'])->name('coach.observaciones.index');
+    Route::post('/observaciones', [ObservacionController::class, 'store'])->name('coach.observaciones.store');
+    Route::put('/observaciones/{id}', [ObservacionController::class, 'update'])->name('coach.observaciones.update');
+    Route::delete('/observaciones/{id}', [ObservacionController::class, 'destroy'])->name('coach.observaciones.destroy');
 
     // Avisos
-    Route::get('/avisos', [AnuncioController::class, 'index'])->name('avisos');
+    Route::get('/avisos', [AnuncioController::class, 'index'])->name('coach.avisos');
     Route::post('/anuncios', [AnuncioController::class, 'store'])->name('anuncios.store');
     Route::put('/anuncios/{id}', [AnuncioController::class, 'update'])->name('anuncios.update');
     Route::delete('/anuncios/{id}', [AnuncioController::class, 'destroy'])->name('anuncios.destroy');
     Route::post('/anuncios/{id}/toggle', [AnuncioController::class, 'toggleActivo'])->name('anuncios.toggle');
 
     // Comunicados
-    Route::post('/comunicados', [ComunicadoController::class, 'store'])->name('comunicados.store');
-    Route::put('/comunicados/{id}', [ComunicadoController::class, 'update'])->name('comunicados.update');
-    Route::delete('/comunicados/{id}', [ComunicadoController::class, 'destroy'])->name('comunicados.destroy');
+    Route::post('/comunicados', [ComunicadoController::class, 'store'])->name('coach.comunicados.store');
+    Route::put('/comunicados/{id}', [ComunicadoController::class, 'update'])->name('coach.comunicados.update');
+    Route::delete('/comunicados/{id}', [ComunicadoController::class, 'destroy'])->name('coach.comunicados.destroy');
 });
 
 // Rutas para Jugador
-Route::middleware(['auth', 'role:player'])->prefix('player')->name('player.')->group(function () {
-    Route::get('/dashboard', [PlayerController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth', 'role:player'])->prefix('player')->group(function () {
+    Route::get('/dashboard', [PlayerController::class, 'dashboard'])->name('player.dashboard');
 
     // Perfil
-    Route::put('/perfil/update-image', [PlayerController::class, 'updateImage'])->name('update-image');
-    Route::put('/perfil/update', [PlayerController::class, 'updateProfile'])->name('update-profile');
+    Route::put('/perfil/update-image', [PlayerController::class, 'updateImage'])->name('player.update-image');
+    Route::put('/perfil/update', [PlayerController::class, 'updateProfile'])->name('player.update-profile');
     
     // Funcionalidades
-    Route::get('/asistencia', [PlayerController::class, 'asistencia'])->name('asistencia');
-    Route::get('/rendimiento', [PlayerController::class, 'rendimiento'])->name('rendimiento');
-    Route::get('/anuncios', [PlayerController::class, 'anuncios'])->name('anuncios');
-    Route::get('/pagos', [PlayerController::class, 'pagos'])->name('pagos');
-    Route::get('/entrenador', [PlayerController::class, 'entrenador'])->name('entrenador');
-    Route::get('/ayuda', [PlayerController::class, 'ayuda'])->name('ayuda');
+    Route::get('/asistencia', [PlayerController::class, 'asistencia'])->name('player.asistencia');
+    Route::get('/rendimiento', [PlayerController::class, 'rendimiento'])->name('player.rendimiento');
+    Route::get('/anuncios', [PlayerController::class, 'anuncios'])->name('player.anuncios');
+    Route::get('/pagos', [PlayerController::class, 'pagos'])->name('player.pagos');
+    Route::get('/entrenador', [PlayerController::class, 'entrenador'])->name('player.entrenador');
+    Route::get('/ayuda', [PlayerController::class, 'ayuda'])->name('player.ayuda');
 });
 
 // Rutas de Pagos
@@ -245,4 +245,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/api/dashboard/stats', [DashboardController::class, 'getDashboardStats'])->name('dashboard.stats');
 
 // Ruta para crear admin (solo desarrollo)
-Route::get('/crear-admin', [AdminController::class, 'crearAdmin']);
+Route::get('/crear-admin', [HomeController::class, 'crearAdmin']);
